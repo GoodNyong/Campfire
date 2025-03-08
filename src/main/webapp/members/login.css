@@ -1,0 +1,108 @@
+@charset "UTF-8";
+
+@font-face {
+    font-family: 'Danjo-bold-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-1@1.1/Danjo-bold-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'WarhavenB';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2312-1@1.1/WarhavenB.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+*{
+	text-decoration: none;
+}
+
+#loginform {
+  
+  width: 500px;
+  margin: 100px auto;
+  padding: 20px 0;
+  height: 430px;
+  background: white;
+  border-radius: 5px;
+  font-family: 'WarhavenB';
+}
+#title {
+	width: 100%;
+    text-align: center;
+    margin: 25px auto 20px;
+    font-size: 30px;
+    font-family: 'Danjo-bold-Regular';
+}
+#idmsg input {
+  width: 90%;
+  height: 40px;
+  padding: 22px 15px;
+  margin: 10px 23px;
+  border: 1px solid gray;
+  box-sizing: border-box;
+  font-size: 15px;
+  border-radius: 10px;
+  font-family: 'WarhavenB';
+}
+#passwordmsg input{
+  width: 90%;
+  height: 40px;
+  padding: 22px 15px;
+  margin: 10px 23px;
+  border: 1px solid gray;
+  box-sizing: border-box;
+  font-size: 15px;
+  border-radius: 10px;
+  font-family: 'WarhavenB';
+}
+#rem{
+    width: 90%;
+    height: 10px; 
+    margin: 5px 23px 10px;
+    color: gray;
+}
+#rem label{
+	cursor: pointer;
+}
+#rem input{
+	cursor: pointer;
+}
+
+#loginbtn{
+    width: 90%;
+    height: 55px;
+    margin: 20px 23px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    border: none;
+    font-size: 15px;
+    color: white;
+    background-color: black;
+    cursor: pointer;
+    font-family: 'WarhavenB';
+}
+#loginbtn:hover{
+	background-color: orange;
+}
+#link{
+    width: 90%;
+    height: 55px;
+    padding: 17px 15px;
+    margin: 5px 23px 20px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    border: none;
+    font-size: 15px;
+    color: white;
+    background-color: black;
+    cursor: pointer;
+    text-align: center;
+}
+#link a{
+    text-decoration: none;
+    color: white;
+    font-family: 'WarhavenB';
+}
+#link:hover {
+	background-color: orange;
+}

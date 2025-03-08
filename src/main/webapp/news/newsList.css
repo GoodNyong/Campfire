@@ -1,0 +1,162 @@
+@charset "UTF-8";
+
+@font-face {
+    font-family: 'Danjo-bold-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-1@1.1/Danjo-bold-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'WarhavenB';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2312-1@1.1/WarhavenB.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+section {
+    width: 100%;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+a:hover {
+    color: orange;
+    text-decoration: underline;
+}
+
+/* 페이지 컨테이너 */
+.page-wrap {
+    width: 90%;
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 20px 0;
+    background: white;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+/* 페이지 헤더 */
+.page-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 0 20px;
+}
+.page-header h1 {
+	width: 50%;
+    font-size: 30px;
+    margin: 0 30px;
+    font-family: Danjo-bold-Regular;
+}
+
+/* 검색 필터 섹션 */
+.search-filter-section {
+    display: flex;
+    width: 50%;
+}
+
+/* 검색창 스타일 */
+.page-search {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    
+}
+
+/* 검색 아이콘 */
+.search-icon {
+    position: absolute;
+    left:85%;
+    font-size: 20px;
+    color: #666;
+}
+
+/* 검색 입력 필드 */
+.page-search-input {
+    display: flex;
+    margin: 10px;
+    width: 250px;
+    padding: 10px;
+    border-radius: 15px;
+    border: 1px solid gray;
+    outline: none;
+    transition: border-color 0.2s ease-in-out;
+    font-family: 'WarhavenB';
+}
+
+.page-search-input:focus {
+    border-color: black;
+}
+
+
+/* 검색 초기화 버튼 */
+#page-search-clear {
+    position: absolute;
+     left: 85%;
+    font-size: 20px;
+    color: #e9680a;
+    cursor: pointer;
+    display: none;
+}
+
+#page-search-clear:hover {
+    transform: scale(1.3);
+}
+
+/* 뉴스 리스트 스타일 */
+.news-list-wrap {
+    background: #fff;
+    padding: 15px;
+    border-radius: 6px;
+    border: 1px solid #f0f0f0;
+}
+
+.news-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.news-item {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.news-item:last-child {
+    border-bottom: none;
+}
+
+.news-title {
+    font-size: 1rem;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.news-title:hover {
+    color: orange;
+}
+
+.news-description {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.news-date {
+    font-size: 0.8rem;
+    color: #999;
+}
+
+/* 반응형 스타일 */
+@media screen and (max-width: 768px) {
+    .page-search {
+        width: 80%;
+    }
+}

@@ -1,0 +1,167 @@
+@charset "UTF-8";
+
+@font-face {
+    font-family: 'Danjo-bold-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-1@1.1/Danjo-bold-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'WarhavenB';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2312-1@1.1/WarhavenB.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+
+/* 페이지 전체 컨테이너 */
+.page-wrap {
+    width: 90%;
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 20px 0;
+    background: white;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    
+}
+
+/* 헤더 스타일 */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 0 20px
+}
+.page-header h1 {
+	font-size: 30px;
+    font-family: Danjo-bold-Regular;
+}
+/* 검색창 스타일 */
+.search-container {
+    display: flex;
+    align-items: center;
+}
+
+.search-container input {
+    padding: 8px;
+    width: 300px;
+    border: 1px solid gray;
+    border-radius: 10px;
+    font-family: 'WarhavenB';
+}
+.search-icon {
+    position: absolute;
+    left: 59%;
+    font-size: 20px;
+    color: #666;
+}
+
+.search-container button {
+	position: relative;
+	right: 25px;
+    background-color: white;
+    color: #e9680a;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    
+}
+.search-container button:hover {
+    transform: scale(1.3);
+}
+
+/* 게임 추가 버튼 */
+.add-game {
+    margin-top: 10px;
+}
+
+.add-game-btn {
+    padding: 10px 15px;
+    background-color: black;
+    color: white;
+    border-radius: 10px;
+    text-decoration: none;
+    font-family: 'WarhavenB';
+}
+
+.add-game-btn:hover {
+    background-color: orange;
+}
+
+/* 게임 목록 스타일 */
+.game-list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    list-style: none;
+    padding: 0;
+}
+
+.game-item {
+    background: white;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+.game-item:hover {
+    transform: scale(1.1);
+}
+
+.game-thumbnail img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+.game-item a {
+	color : black;
+    text-decoration: none;
+    font-family: 'WarhavenB';
+}
+.game-item a:hover{
+	color : orange;
+}
+.game-info h3 {
+    font-size: 16px;
+    margin: 10px 0 5px;
+}
+
+.game-info p {
+    font-size: 14px;
+    color: #666;
+}
+
+/* 페이징 스타일 */
+.pagination {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.pagination a {
+    padding: 8px 12px;
+    margin: 0 5px;
+    background-color: black;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+.pagination a:hover {
+    background-color: orange;
+}
+
+/* 반응형 스타일 */
+@media (max-width: 768px) {
+    .game-list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .game-list {
+        grid-template-columns: 1fr;
+    }
+}

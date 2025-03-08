@@ -1,0 +1,277 @@
+@charset "UTF-8";
+@font-face {
+    font-family: 'Danjo-bold-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-1@1.1/Danjo-bold-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'WarhavenB';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2312-1@1.1/WarhavenB.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+
+/* 🔹 마이페이지 전체 컨테이너 */
+.page-wrap {
+    width: 80%;
+    max-width: 1000px;
+    margin: 20px auto;
+    background: white;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+
+/* 내가 쓴 목록 (스크롤 적용) */
+.list-container {
+    max-height: 250px; /* 최대 높이 제한 */
+    overflow-y: auto; /* 내용이 많으면 스크롤 */
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 20px;
+    background: #f9f9f9;
+    border-radius: 5px;
+}
+
+/* 리스트 스타일 */
+.list-container ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.list-container li {
+    padding: 8px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+/* 리뷰 수정 영역 스타일 */
+.review-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.review-container input[type="number"],
+.review-container textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* 댓글 수정 textarea */
+textarea {
+    width: 80%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: none;
+}
+
+/* 버튼 그룹 */
+.button-group {
+    display: flex;
+    gap: 5px;
+}
+/* ✅ 공통 스타일 - 회원 정보 & 내가 쓴 글/댓글/리뷰 목록 */
+/* 🔹 공통 컨테이너 스타일 (회원 정보 & 내가 쓴 목록) */
+/* 🔹 공통 컨테이너 스타일 (회원 정보 & 내가 쓴 목록) */
+/* 🔹 회원 정보 섹션 스타일 */
+/* .profile-container {
+    display: flex;
+    flex-direction: column;
+    padding: 25px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+} */
+.admin-title {
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    font-family: 'Danjo-bold-Regular';
+}
+/* 🔹 회원 정보 제목 */
+.admin-subtitle {
+	font-size: 20px;
+    font-weight: bold;
+    margin-left: 10px;
+    margin-bottom: 20px;
+    text-align: left;
+    color: black;
+    font-family: 'WarhavenB';
+}
+.admin-trdtitle{
+	font-size: 20px;
+    font-weight: bold;
+    margin-top: 100px;
+    margin-left: 10px;
+    margin-bottom: 20px;
+    text-align: left;
+    color: black;
+    font-family: 'WarhavenB';
+}
+/* 🔹 회원 정보 폼 */
+.profile-form {
+    width: 100%;
+    margin: 0 auto;
+}
+
+/* 🔹 회원 정보 입력 필드 스타일 */
+.profile-row {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 15px;
+    padding: 8px;
+    background: white;
+   
+    
+}
+
+.profile-row label {
+    width: 30%;
+    text-align: left;
+    font-weight: bold;
+    padding-left: 50px;
+    color: black;
+}
+
+.profile-row input {
+    width: 50%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+
+
+/* 🔹 회원 정보 수정 버튼 (내가 쓴 글 수정 버튼과 동일) */
+.profile-buttons .edit-btn {
+	float : right;
+	width: 120px;
+	height : 41px;
+    background-color: black;
+    color: white;
+    font-size:16px;
+    font-family: 'WarhavenB';
+    cursor: pointer;
+    margin-right: 10px;
+    border: none;
+    border-radius: 5px;
+    transition: background 0.2s ease;
+    
+}
+
+.profile-buttons .edit-btn:hover {
+    background-color: orange;
+    transform: scale(1.1);
+}
+
+/* 🔹 회원 탈퇴 버튼 (내가 쓴 글 삭제 버튼과 동일) */
+.profile-buttons .delete-btn {
+	float : right;
+	width: 120px;
+	height : 41px;
+    background-color: black;
+    color: white;
+    font-size:16px;
+    font-family: 'WarhavenB';
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    transition: background 0.2s ease;
+}
+
+.profile-buttons .delete-btn:hover {
+   	background-color: #ff0000;;
+    transform: scale(1.1);
+}
+
+/* 🔹 내가 쓴 목록 스타일 */
+.list-container {
+    max-height: 250px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 20px;
+    background: #f9f9f9;
+    border-radius: 5px;
+    font-family:"Nanum Gothic";
+}
+
+/* 🔹 내가 쓴 글 목록 */
+.list-container ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.list-container li {
+    padding: 8px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* 🔹 리뷰 / 댓글 수정 영역 */
+.review-container, .comment-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* 🔹 리뷰 수정 폼 */
+.review-container input[type="number"], .review-container textarea,
+.comment-container textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: none;
+}
+
+/* 🔹 버튼 그룹 정렬 */
+.button-group {
+    display: flex;
+    gap: 5px;
+    justify-content: flex-end;
+    width: 120px;
+	height : 41px;
+    background-color: black;
+    color: white;
+    font-size:16px;
+    font-family: 'WarhavenB';
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    transition: background 0.2s ease;
+}
+
+.button-group .edit-btn {
+    background-color: black;
+    color: white;
+}
+
+.button-group .delete-btn {
+    background-color: black;
+    color: white;
+}
+
+.button-group .edit-btn:hover {
+    background-color: orange;
+}
+
+.button-group .delete-btn:hover {
+    background-color: #ff0000;
+}

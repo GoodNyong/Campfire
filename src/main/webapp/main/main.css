@@ -1,0 +1,323 @@
+@font-face {
+	font-family: 'Danjo-bold-Regular';
+	src:
+		url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-1@1.1/Danjo-bold-Regular.woff2')
+		format('woff2');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'WarhavenB';
+	src:
+		url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2312-1@1.1/WarhavenB.woff2')
+		format('woff2');
+	font-weight: 700;
+	font-style: normal;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+header {
+	height: 95px;
+}
+
+.top-menu {
+	display: flex;
+	height: 95px;
+	align-items: center;
+	background-color: black;
+	z-index: 3;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+}
+
+.logo {
+	/* width: 200px; */
+	height: 100%;
+	font-family: 'Danjo-bold-Regular';
+}
+
+.logo img {
+	width: 40px;
+	position: relative;
+	bottom: 5px;
+}
+
+.logo a {
+	width: 200px; /* 간격 수정 280 -> 200 */
+	height: 105px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-decoration: none;
+	color: white;
+	font-size: 40px;
+}
+
+.nav-menu {
+	display: flex;
+	font: bold 18px 'Danjo-bold-Regular';
+	height: 100%;
+	color: black;
+	line-height: 50px;
+	text-align: center;
+	align-items: center;
+	position: relative;
+	top: 10px;
+}
+
+.nav-menu ul {
+	display: flex;
+	align-items: center;
+	height: 100%;
+}
+
+.nav-menu ul li {
+	list-style: none;
+	float: left;
+	width: 150px;
+	position: relative;
+}
+
+.nav-menu ul li a {
+	text-decoration: none;
+	color: white;
+	position: relative;
+	height: 50px;
+	width: 50px;
+}
+
+.nav-menu ul li a::before {
+	content: "";
+	height: 5px;
+	width: 0;
+	border-radius: 10px;
+	transition: 0.3s ease-in;
+	position: absolute;
+	top: 15px;
+	left: 0;
+}
+
+.nav-menu ul li a:hover::before {
+	width: 100%;
+	background-color: orange;
+}
+
+.nav-menu ul li ul {
+	width: 500px;
+	display: none;
+	position: absolute;
+	font-size: 14px;
+	background: black;
+	z-index: 3;
+}
+
+.nav-menu ul li:hover ul {
+	display: flex;
+}
+
+.search-box {
+	position: absolute;
+	left: 94%;
+	bottom: 17%;
+	transform: translate(-100%, 0);
+	background-color: black;
+	height: 50px;
+	padding: 0px;
+	border-radius: 40px;
+	z-index: 3;
+}
+
+.search-box>form {
+	width: 100%;
+	position: relative;
+	left: 10px;
+	height: 50px;
+}
+
+.search-btn {
+	position: absolute;
+	right: 0;
+	top: 0;
+	color: white;
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	background: darkgray;
+}
+
+.search-txt {
+	float: left;
+	position: relative;
+	right: 20px;
+	top: 5px;
+	padding: 0px;
+	background: none;
+	border: none;
+	outline: none;
+	color: white;
+	font-size: 20px;
+	line-height: 40px;
+	width: 0px;
+	transition: 0.5s;
+}
+
+.search-box input::placeholder {
+	color: #c0c0c0;
+}
+
+.search-box:hover>form .search-txt {
+	width: 400px;
+}
+
+.search-box>form .search-txt:focus {
+	width: 400px;
+}
+
+.search-box:hover>form .search-btn {
+	background: #464E54;
+}
+
+.dropdown {
+	position: fixed;
+	display: inline-block;
+	left: 96%;
+	top: 28px;
+}
+
+.dropbtn {
+	background-color: black;
+	color: white;
+	width: 48px;
+	height: 48px;
+	font-size: 16px;
+	border: none;
+	border-radius: 50%;
+	cursor: pointer;
+}
+
+.dropdown img {
+	width: 48px;
+	filter: opacity(0.5) drop-shadow(0 0 0 rgb(255, 0, 0));
+}
+
+.dropdown-content {
+	display: none;
+	position: absolute;
+	top: 60px;
+	right: -10px;
+	background-color: black;
+	min-width: 150px;
+	border-radius: 15px;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	z-index: 5;
+}
+
+.dropdown-content a {
+	color: white;
+	padding: 12px 16px;
+	text-decoration: none;
+	display: block;
+	font-family: 'Danjo-bold-Regular';
+}
+
+.dropdown-content a:hover {
+	background-color: orange;
+	border-radius: 15px;
+}
+
+@media screen and (max-width: 1300px) {
+	.dropdown {
+		display: inline-block; /* 또는 flex */
+	}
+}
+
+@media screen and (max-width: 1100px) {
+	.nav-menu {
+		display: flex;
+	}
+	.nav-menu ul li {
+		width: 100px; /* 더 작은 최소 크기 */
+	}
+}
+
+.swiper {
+	width: 100%;
+	height: 100%;
+}
+
+.swiper-slide {
+	text-align: center;
+	font-size: 18px;
+	background: #fff;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	overflow: hidden;
+	position: relative;
+	top: 0px;
+	height: 800px;
+}
+
+.swiper-slide img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.swiper-pagination {
+	left: 800px;
+}
+
+.slsp {
+	width: 100%;
+	height: 500px;
+	border: 3px solid red;
+}
+
+.srvp {
+	width: 100%;
+	height: 500px;
+	border: 3px solid red;
+}
+
+footer {
+	background-color: #010026; /* 어두운 배경색 */
+	color: white; /* 텍스트 색상 */
+	padding: 10px 0; /* 상하 여백 */
+	text-align: center; /* 텍스트를 중앙 정렬 */
+}
+
+.footer-container {
+	width: 90%;
+	max-width: 1200px; /* 최대 너비 */
+	margin: 0 auto; /* 수평 중앙 정렬 */
+}
+
+footer p {
+	margin: 0; /* 불필요한 여백 제거 */
+	font-size: 14px;
+}
+
+.footer-nav {
+	margin-top: 10px; /* 네비게이션과 텍스트 사이의 여백 */
+}
+
+footer a {
+	color: white; /* 링크 색상 */
+	margin: 0 15px; /* 링크 사이 간격 */
+	text-decoration: none; /* 밑줄 제거 */
+}
+
+footer a:hover {
+	text-decoration: underline; /* 호버 시 밑줄 추가 */
+	color: #f39c12; /* 호버 시 색상 변경 */
+}
