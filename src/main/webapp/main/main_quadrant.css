@@ -1,0 +1,248 @@
+@charset "UTF-8";
+
+/* 공통 폰트 */
+@font-face {
+    font-family: 'Danjo-bold-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-1@1.1/Danjo-bold-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'WarhavenB';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2312-1@1.1/WarhavenB.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+
+/* 기본 스타일 초기화 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f0f2f5; /* 페이지 전체 배경색 */
+    padding-top: 95px; /* 고정 헤더 높이만큼 여백 */
+    font-family: 'WarhavenB', sans-serif; /* 기본 폰트 */
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+}
+
+/* 4분할 컨테이너 (CSS Grid 사용) */
+.quadrant-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2개의 동일한 너비의 열 */
+    grid-auto-rows: minmax(350px, auto);   /* 행의 최소 높이를 350px로, 내용은 그 이상으로 늘어날 수 있음 */
+    gap: 20px; /* 각 분할 영역 사이의 간격 */
+    padding: 20px;
+    max-width: 1400px; /* 최대 너비 제한 */
+    margin: 0 auto; /* 수평 중앙 정렬 */
+}
+
+/* 각 분할 영역(Quadrant) 공통 스타일 */
+.quadrant {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* 내부 요소가 넘칠 경우 숨김 */
+}
+
+.quadrant-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+}
+
+.quadrant-header h3 {
+    font-family: 'Danjo-bold-Regular', sans-serif;
+    font-size: 22px;
+    color: #333;
+}
+
+.quadrant-header h3 i {
+    margin-right: 10px;
+    color: orange;
+}
+
+.more-link {
+    font-size: 14px;
+    color: #888;
+    font-weight: bold;
+    transition: color 0.2s ease;
+}
+.more-link:hover {
+    color: orange;
+}
+
+
+/* 1. 공지 & 게시글 스타일 */
+.post-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 5px;
+    font-size: 15px;
+    border-bottom: 1px solid #f5f5f5;
+    transition: background-color 0.2s ease;
+}
+.post-list li:hover {
+    background-color: #fafafa;
+}
+.post-list a {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* 제목이 길면 ...으로 표시 */
+    flex-grow: 1;
+    margin-right: 15px;
+}
+.notice-badge {
+    background-color: orange;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+    margin-right: 8px;
+}
+.post-date {
+    color: #999;
+    font-size: 14px;
+    flex-shrink: 0; /* 날짜 너비 고정 */
+}
+
+/* 2 & 4. 카드 그리드 스타일 (리뷰, 영상) */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    height: 100%;
+}
+.card {
+    border: 1px solid #eee;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+.card img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    display: block;
+}
+.card-body {
+    padding: 10px;
+    flex-grow: 1;
+}
+.card h5 {
+    font-size: 15px;
+    margin-bottom: 5px;
+}
+.rating {
+    color: #f5c518;
+    font-size: 14px;
+}
+
+/* 4. 영상 카드 특별 스타일 */
+.video-link {
+    position: relative;
+    display: block;
+}
+.play-icon {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0,0,0,0.3);
+    color: white;
+    font-size: 30px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+.video-link:hover .play-icon {
+    opacity: 1;
+}
+.video-grid .card h5 { /* 영상 카드의 제목은 이미지 아래에 배치 */
+    padding: 10px;
+}
+
+/* 3. 뉴스 리스트 스타일 */
+.news-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.news-list li a {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.news-list li img {
+    width: 100px;
+    height: 65px;
+    object-fit: cover;
+    border-radius: 4px;
+    flex-shrink: 0;
+}
+.news-text .news-title {
+    font-size: 15px;
+    margin-bottom: 5px;
+    /* 두 줄 이상 길어지면 ... 처리 */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+.news-text .news-source {
+    font-size: 13px;
+    color: #888;
+}
+
+
+/* 반응형 디자인 */
+@media screen and (max-width: 1200px) {
+    /* 화면이 좁아지면 카드 그리드를 1열로 변경 */
+    .card-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    /* 화면이 더 좁아지면 전체 레이아웃을 1열로 변경 */
+    .quadrant-container {
+        grid-template-columns: 1fr;
+        grid-auto-rows: auto; /* 행 높이 자동 조정 */
+    }
+}
+
+@media screen and (max-width: 768px) {
+    /* 모바일 헤더 높이에 맞게 body padding 조정 */
+    body {
+        padding-top: 70px;
+    }
+    .quadrant-container {
+        padding: 10px;
+        gap: 10px;
+    }
+    .quadrant {
+        padding: 15px;
+    }
+    .quadrant-header h3 {
+        font-size: 20px;
+    }
+}

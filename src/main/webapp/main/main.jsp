@@ -1,168 +1,130 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="java.net.*, java.io.*, org.json.*" %>
-<%@ page session="true" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
     <link rel="icon" href="main/imagefile/loco.ico" type="image/x-icon">
     <title>모닥불</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <link rel="stylesheet" type="text/css" href="main/main.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css" integrity="sha512-9xKTRVabjVeZmc+GUW8GgSmcREDunMM+Dt/GrzchfN8tkwHizc5RP4Ok/MXFFy5rIjJjzhndFScTceq5e6GvVQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
+    <link rel="stylesheet" type="text/css" href="main/main_quadrant.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
-<body>|
-	<!-- git test  -->
-        <header>
-                <div class="top-menu">
-                    <div class="logo">
-                            <a href="./main"><img src="main/imagefile/mainlogo.jpg"><span class="logoword">모닥불</span></a>
-                    </div>
-                    <div class="nav-menu">
-                        <ul>
-                            <li><a href="#">게시판</a>
-                                <ul>
-                                	<li><a href="BoardList">전체 게시판</a></li>
-                                    <li><a href="BoardList?category=2">리그오브레전드</a></li>
-                                    <li><a href="BoardList?category=3">배틀그라운드</a></li>
-                                    <li><a href="BoardList?category=4">로스트아크</a></li>
-                                    <li><a href="BoardList?category=5">메이플스토리</a></li>
-                                </ul>
-                            </li>
-                                    <li><a href="BoardList?category=1">공지</a> </li>
-                                    <li><a href="newsList">뉴스</a></li>
-                                    <li><a href="gameList">리뷰</a> </li>
-                                    <li><a href="videoList">영상</a></li>
-                        </ul>
-                    </div>
+<body>
+    <%-- 내비게이션 바 포함 (수정 없음) --%>
+    <jsp:include page="../main/navi.jsp" />
 
-                    <!-- 검색창 -->
-                    <div class="search-box">
-                        <form action="" method="get">
-                          <input class="search-txt" type="text" name="" maxlength="255" placeholder="검색어를 입력해 주세요">
-                          <button class="search-btn" type="submit">
-                            <i class="fas fa-search"></i>
-                          </button>
-                        </form>
-                    </div>
-                    
-					<!-- 로그인 -->	
-                    <div class="dropdown">
-                        <button class="dropbtn"><img src="main/imagefile/loginlogo.png"></button>
-                        <div class="dropdown-content">
-                             <%
-                     String loginUserId = (String) session.getAttribute("loginUserId");
-                     Integer role = (Integer) session.getAttribute("role");
+    <%-- 4분할 레이아웃을 감싸는 메인 컨테이너 --%>
+    <main class="quadrant-container">
 
-                     if (loginUserId != null) { // 로그인 상태
-                        if (role != null && role == 1) { // 🔹 관리자 계정
-                     %>
-                           <a href="adminPage">관리자 페이지</a> 
-                           <a href="logout">로그아웃</a>
-                     <%
-                        } else { // 🔹 일반 회원 계정
-                     %>
-                           <a href="myPage">마이페이지</a> 
-                           <a href="logout">로그아웃</a>
-                     <%
-                        }
-                     } else { // 비로그인 상태
-                     %>
-                        <a href="login">로그인</a>
-                        <a href="register">회원가입</a>
-                     <%
-                     }
-                     %>
+        <div class="quadrant quadrant-posts">
+            <div class="quadrant-header">
+                <h3><i class="fa-solid fa-bullhorn"></i> 공지 & 게시글</h3>
+                <a href="BoardList" class="more-link">더보기 &gt;</a>
+            </div>
+            <ul class="post-list">
+                <li><a href="#"><span class="notice-badge">공지</span> 2025년 7월 서버 정기 점검 안내</a><span class="post-date">07-05</span></li>
+                <li><a href="#">새로운 '어둠의 전장' 업데이트 미리보기</a><span class="post-date">07-04</span></li>
+                <li><a href="#">'전설의 대장장이' 이벤트 참여 방법</a><span class="post-date">07-03</span></li>
+                <li><a href="#">길드전 시즌 3 보상 관련 안내입니다.</a><span class="post-date">07-02</span></li>
+                <li><a href="#">운영 정책 위반 계정 제재 안내 (7/1)</a><span class="post-date">07-01</span></li>
+                <li><a href="#">최고 레벨 달성! 저만의 공략 팁 공유</a><span class="post-date">06-30</span></li>
+            </ul>
+        </div>
+
+        <div class="quadrant quadrant-reviews">
+            <div class="quadrant-header">
+                <h3><i class="fa-solid fa-gamepad"></i> 게임 리뷰</h3>
+                <a href="gameList" class="more-link">더보기 &gt;</a>
+            </div>
+            <div class="card-grid review-grid">
+                <div class="card">
+                    <img src="main/imagefile/review_thumb_1.jpg" alt="게임 1 리뷰">
+                    <div class="card-body">
+                        <h5>사이버펑크 2077: 확장팩 리뷰</h5>
+                        <div class="rating">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star-half-stroke"></i>
                         </div>
                     </div>
-                    <script>
-                        document.querySelector('.dropbtn').addEventListener('click', function(event) {
-                        var dropdownContent = this.nextElementSibling;
-                        if (dropdownContent.style.display === 'block') {
-                            dropdownContent.style.display = 'none';
-                        } else {
-                            dropdownContent.style.display = 'block';
-                        }
-                        event.stopPropagation(); //추가 
-                    });
-
-
-                    document.addEventListener('click', function() {
-                        var dropdowns = document.querySelectorAll('.dropdown-content');
-                        dropdowns.forEach(function(dropdown) {
-                            if (dropdown.style.display === 'block') {
-                                dropdown.style.display = 'none';
-                            }
-                        });
-                    });
-                    </script>
-                   
-                   	
-  				</div>
-        </header>
-        <section>
-            <div class="swiper mySwiper">
-                <div class="swiper-wrapper">
-                  <div class="swiper-slide">
-                  <a href="https://www.leagueoflegends.com/ko-kr/" target="_blank">
-                    <video src="main/imagefile/LoL.mp4" type="video/webm" muted autoplay loop playsinline>
-                    </video></a>
                 </div>
-                  <div class="swiper-slide">
-                    <a href="https://www.pubg.com/ko/main" target="_blank">
-                        <video src="main/imagefile/battleground.mp4" type="video/webm" muted autoplay loop playsinline>
-                        </video></a>
+                <div class="card">
+                    <img src="main/imagefile/review_thumb_2.jpg" alt="게임 2 리뷰">
+                    <div class="card-body">
+                        <h5>젤다의 전설: 왕국의 눈물</h5>
+                        <div class="rating">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                    </div>
                 </div>
-                  <div class="swiper-slide"> 
-                  <a href="https://m-lostark.game.onstove.com/Main" target="_blank">
-                    <video src="main/imagefile/lostark.mp4" type="video/webm" muted autoplay loop playsinline>
-                    </video></a>
-                   </div>
-                  <div class="swiper-slide"> 
-                  <a href="https://maplestory.nexon.com/Home/Main" target="_blank">
-                    <video src="main/imagefile/maple.mp4" type="video/webm" muted autoplay loop playsinline>
-                    </video></a>
-                   </div>
+            </div>
+        </div>
+
+        <div class="quadrant quadrant-news">
+            <div class="quadrant-header">
+                <h3><i class="fa-solid fa-newspaper"></i> 최신 뉴스</h3>
+                <a href="newsList" class="more-link">더보기 &gt;</a>
+            </div>
+            <ul class="news-list">
+                <li>
+                    <a href="#">
+                        <img src="main/imagefile/news_thumb_1.jpg" alt="뉴스 썸네일 1">
+                        <div class="news-text">
+                            <p class="news-title">라이엇 게임즈, '발로란트' 신규 맵 '어비스' 공개</p>
+                            <span class="news-source">게임인사이트 | 2025-07-05</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="main/imagefile/news_thumb_2.jpg" alt="뉴스 썸네일 2">
+                        <div class="news-text">
+                            <p class="news-title">"한국이 제일 중요" 팰월드 대표, 지스타 참가 확정</p>
+                            <span class="news-source">디스이즈게임 | 2025-07-04</span>
+                        </div>
+                    </a>
+                </li>
+                 <li>
+                    <a href="#">
+                        <img src="main/imagefile/news_thumb_3.jpg" alt="뉴스 썸네일 3">
+                        <div class="news-text">
+                            <p class="news-title">블리자드, '디아블로4' 첫 확장팩 출시일 발표</p>
+                            <span class="news-source">인벤 | 2025-07-03</span>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="quadrant quadrant-videos">
+            <div class="quadrant-header">
+                <h3><i class="fa-solid fa-video"></i> 추천 영상</h3>
+                <a href="videoList" class="more-link">더보기 &gt;</a>
+            </div>
+            <div class="card-grid video-grid">
+                <div class="card">
+                    <a href="#" class="video-link">
+                        <img src="main/imagefile/video_thumb_1.jpg" alt="영상 1 썸네일">
+                        <div class="play-icon"><i class="fa-solid fa-play"></i></div>
+                        <h5>페이커 매드무비 #125</h5>
+                    </a>
                 </div>
-                <div class="swiper-button-next"></div>
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-pagination"></div>
-              </div>
-            <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-            <script>
-                var swiper = new Swiper(".mySwiper", {
-                    
-                    loop: true,
-                    
-                    pagination: {
-                        el: ".swiper-pagination",
-                        type: "fraction",
-                    },
-                    navigation: {
-                        nextEl: ".swiper-button-next",
-                        prevEl: ".swiper-button-prev",
-
-                    },
-                });
-            </script>
-        </section>
-
-        
-        <footer>
-  			<div class="footer-container">
-  				<P>명칭 : 모닥불</P>
-    			<p>충청북도 청주시 서원구 사직대로 109 4층</p>
-    			<p>&copy; 2025 My Website. All rights reserved.</p>
-    			<nav class="footer-nav">
-      				<a href="#">Home</a>
-    			</nav>
-  			</div>
-</footer>
+                 <div class="card">
+                    <a href="#" class="video-link">
+                        <img src="main/imagefile/video_thumb_2.jpg" alt="영상 2 썸네일">
+                        <div class="play-icon"><i class="fa-solid fa-play"></i></div>
+                        <h5>로스트아크 '카멘' 최초 공략</h5>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
 </body>
 </html>
