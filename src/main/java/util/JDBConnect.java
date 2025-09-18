@@ -25,11 +25,10 @@ public class JDBConnect {
 			// 객체 생성
 			Class.forName("com.mysql.jdbc.Driver");
 
-			// DB에 연결
-			String url = "jdbc:mysql://localhost:3306/campfire";
-
-			String id = "root";
-			String pwd = "airgear";
+			// DB에 연결 - 환경변수 또는 설정파일에서 가져와야 합니다
+			String url = System.getProperty("db.url", "jdbc:mysql://localhost:3306/campfire");
+			String id = System.getProperty("db.username", "YOUR_DB_USERNAME");
+			String pwd = System.getProperty("db.password", "YOUR_DB_PASSWORD");
 
 			con = DriverManager.getConnection(url, id, pwd);
 

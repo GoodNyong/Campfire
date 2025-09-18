@@ -17,9 +17,9 @@ import org.json.simple.parser.JSONParser;
 import dto.NewsDto;
 
 public class NewsAPIService {
-	// 네이버 API 요청을 위한 클라이언트 ID 및 시크릿 키
-	private static final String CLIENT_ID = "9yOKWHxsNeKm0IRToXpl";
-	private static final String CLIENT_SECRET = "XmjFYBpjcK";
+	// 네이버 API 요청을 위한 클라이언트 ID 및 시크릿 키는 환경변수 또는 설정파일에서 가져와야 합니다
+	private static final String CLIENT_ID = System.getProperty("naver.client.id", "YOUR_NAVER_CLIENT_ID");
+	private static final String CLIENT_SECRET = System.getProperty("naver.client.secret", "YOUR_NAVER_CLIENT_SECRET");
 
 	// API 호출 및 뉴스 데이터 변환 메소드
 	public List<NewsDto> fetchGameNews() {

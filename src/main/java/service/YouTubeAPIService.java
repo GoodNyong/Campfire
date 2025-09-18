@@ -18,10 +18,11 @@ import dto.VideoDto;
 public class YouTubeAPIService {
 	// api url 요청 형식 작성
 	// 인기순, 카테고리-게임, 지역코드-한국, 가져올 동영상 수 100개
-	// api키 입력
+	// api키는 환경변수 또는 설정파일에서 가져와야 합니다
+	private static final String API_KEY = System.getProperty("youtube.api.key", "YOUR_YOUTUBE_API_KEY");
 	private static final String API_URL = "https://www.googleapis.com/youtube/v3/videos?"
 			+ "part=snippet&chart=mostPopular&videoCategoryId=20&regionCode=KR" + "&maxResults=50"
-			+ "&key=AIzaSyCm8EpOyOYREb3WKAhd6M299EAX8VXGnkE"; // TODO: 발급받은 API 키
+			+ "&key=" + API_KEY;
 
 	// 받아온 json데이터를 videoDto로 변환하는 메소드
 	public List<VideoDto> fetchPopularGameVideos() {
