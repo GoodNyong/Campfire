@@ -1,0 +1,43 @@
+# Java
+*.class
+*.jar
+*.war
+*.ear
+*.log
+*.tmp
+
+# IDE
+.idea/
+.eclipse/
+*.iml
+*.iws
+*.ipr
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build
+build/
+target/
+dist/
+out/
+
+# Sensitive configuration files
+config.properties
+local.properties
+*.env
+.env*
+
+# Database
+*.db
+*.sqlite
+
+# Logs
+logs/
+*.log
+
+# Temporary files
+tmp/
+temp/

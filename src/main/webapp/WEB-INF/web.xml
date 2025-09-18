@@ -12,7 +12,7 @@
 		<welcome-file>default.jsp</welcome-file>
 		<welcome-file>default.htm</welcome-file>
 	</welcome-file-list>
-	<!-- MySQL연결 -->
+	<!-- MySQL연결 - 실제 운영시에는 환경변수나 외부 설정파일을 사용하세요 -->
 	<context-param>
 		<param-name>MySqlDriver</param-name>
 		<param-value>com.mysql.jdbc.Driver</param-value>
@@ -23,11 +23,11 @@
 	</context-param>
 	<context-param>
 		<param-name>MySqlId</param-name>
-		<param-value>root</param-value>
+		<param-value>YOUR_DB_USERNAME</param-value>
 	</context-param>
 	<context-param>
 		<param-name>MySqlPwd</param-name>
-		<param-value>airgear</param-value>
+		<param-value>YOUR_DB_PASSWORD</param-value>
 	</context-param>
 	<!-- 한글 깨짐 방지를 위한 필터 설정 -->
 	<filter>
