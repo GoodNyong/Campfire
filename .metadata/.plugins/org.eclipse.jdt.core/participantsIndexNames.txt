@@ -1,0 +1,7 @@
+INDEX VERSION 1.134
+C:\Users\gy990\OneDrive\GYP\11.JSP\Campfire\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3883579337.index
+\project0124\src\main\java
+C:\Users\gy990\OneDrive\GYP\11.JSP\Campfire\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2831013728.index
+\FreeBoardProject\src\main\java
+C:\Users\gy990\OneDrive\GYP\11.JSP\Campfire\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1979335502.index
+\projectFebWeek1\src\main\java

@@ -1,0 +1,8 @@
+INDEX VERSION 1.134+C:\Users\gy990\OneDrive\GYP\11.JSP\Campfire\.metadata\.plugins\org.eclipse.jdt.core
+2260377535.index
+145772174.index
+3207055457.index
+1865797976.index
+2735098728.index
+3459361737.index
+2985865691.index
