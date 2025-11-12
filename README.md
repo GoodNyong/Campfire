@@ -91,16 +91,21 @@ build/classes/     # 컴파일 산출물(저장소에 포함되어 있음)
 - 비밀정보: DB 계정/외부 API 키가 코드/설정에 노출됨 → 환경변수/JNDI로 이동하고 커밋 금지.
 - ✅ ~~SQL 인젝션: `BoardDao.selectCount(...)` 등 문자열 결합 쿼리 존재~~ → **수정 완료** (PreparedStatement 파라미터 바인딩 적용)
 - ✅ ~~드라이버/URL: deprecated 드라이버 클래스 사용~~ → **수정 완료** (`com.mysql.cj.jdbc.Driver` 사용)
-- 커넥션/자원: 스케줄러 포함 모든 DAO에서 사용 후 `close()` 보장, 풀(DataSource) 사용 권장.
+- ⚠️ 커넥션/자원: 주요 DAO 메소드에 finally 블록 리소스 정리 추가 완료. 풀(DataSource) 사용은 추후 검토.
 - 인증 적용: `filter/AuthFilter`가 주석 상태. 보호 URL에 대해 일괄 필터 적용 필요.
-- 테스트/스크립틀릿: 운영 노출 위험이 있는 테스트 JSP(`ConnectionTest.jsp`) 제거 권장. JSP 스크립틀릿 최소화.
-- 저장소 용량: `build/` 산출물과 대용량 미디어(mp4 등)가 포함됨 → `.gitignore` 추가 및 외부 스토리지/CDN 사용 권장.
+- ✅ 테스트/스크립틀릿: `.gitignore`에 `ConnectionTest.jsp` 추가 완료. JSP 스크립틀릿 최소화는 추후 작업.
+- ✅ ~~저장소 용량: `build/` 산출물과 대용량 미디어(mp4 등)가 포함됨~~ → **일부 완료** (`.gitignore` 개선, 대용량 파일 제외 패턴 추가)
 - 리다이렉트 안전성: 로그인 후 `url` 파라미터 검증/화이트리스트로 오픈 리다이렉트 방지.
 - 로깅: `System.out.println` 대신 SLF4J/Logback 등 표준 로깅 도입.
 - ✅ ~~중복 코드: `dto.PageHandler`와 `util.PageHandler` 중복~~ → **수정 완료** (통합 완료)
 
 ## 최근 개선 사항
-### 2025-11-12 리팩토링
+### 2025-11-12 로드맵 개선 작업
+- **.gitignore 개선**: Eclipse 관련 파일, 대용량 미디어 파일, 빌드 산출물, 테스트 파일 제외 패턴 추가
+- **DAO 리소스 관리**: BoardDao, MemberDao, CommentDao의 주요 메소드에 try-finally 블록 추가하여 리소스 누수 방지
+- **코드 품질**: 로컬 변수로 PreparedStatement와 ResultSet 관리, 예외 발생 시에도 안전한 리소스 정리 보장
+
+### 2025-11-12 초기 리팩토링
 - **보안 개선**: BoardDao.selectCount에서 SQL 인젝션 취약점 수정 (PreparedStatement 파라미터 바인딩 적용)
 - **코드 품질**: 중복된 util/PageHandler.java 제거 (dto 패키지로 통합)
 - **최신화**: Deprecated MySQL 드라이버 클래스명 업데이트 (com.mysql.cj.jdbc.Driver 사용)
@@ -108,7 +113,7 @@ build/classes/     # 컴파일 산출물(저장소에 포함되어 있음)
 
 ## 로드맵(개선 제안)
 1) 보안 강화
-   - ✅ SQL 인젝션 제거 (BoardDao 일부 완료)
+   - ✅ SQL 인젝션 제거 (BoardDao 완료)
    - 🔲 비밀번호 해시 (BCrypt/Argon2 적용)
    - 🔲 비밀정보 외부화 (환경변수/JNDI)
    - 🔲 인증 필터 적용
@@ -118,11 +123,12 @@ build/classes/     # 컴파일 산출물(저장소에 포함되어 있음)
    - 🔲 오류 처리 일원화
 3) 코드 정리
    - ✅ 페이징/유틸 통합 (중복 제거 완료)
+   - ⚠️ DAO 리소스 관리 개선 (BoardDao, MemberDao, CommentDao 일부 완료 - try-finally 패턴 적용)
    - 🔲 스크립틀릿 제거
-   - 🔲 DAO try-with-resources 적용
+   - 🔲 나머지 DAO 리소스 관리 개선 (GameDao, ReviewDao, NewsDao, VideoDao)
 4) 저장소 정리
-   - 🔲 `.gitignore` 도입
-   - 🔲 산출물/대용량 자산 분리
+   - ✅ `.gitignore` 도입 완료 (Eclipse, 미디어 파일, 빌드 산출물 제외)
+   - 🔲 기존 커밋된 대용량 자산 분리 (Git LFS 또는 외부 스토리지)
 5) 문서화
    - 🔲 DB 스키마/ERD
    - 🔲 로컬 개발 가이드
