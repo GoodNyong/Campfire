@@ -16,32 +16,37 @@ public class MemberDao extends JDBConnect {
 	}
 
 	public MemberDto selectMember(String id) {
-		// 1. 반환값을 저장할 변수를 선언
 		MemberDto m = null;
-		try {
-			// 2. sql문 작성(role(관리자 구분) 및 가입날짜 추가),(member_id 조회 추가)
-			String sql = "SELECT member_id, id, password, nickname, email, reg_date, role FROM members WHERE id = ?";
+		PreparedStatement pstmt = null;
+		ResultSet resultSet = null;
 
-			// 3. psmt 객체 생성
-			psmt = con.prepareStatement(sql);
-			// 4. ?채우기
-			psmt.setString(1, id);
-			// 5. 실행
-			rs = psmt.executeQuery();
-			if (rs.next()) {
+		try {
+			String sql = "SELECT member_id, id, password, nickname, email, reg_date, role FROM members WHERE id = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			resultSet = pstmt.executeQuery();
+
+			if (resultSet.next()) {
 				System.out.println("----------------");
 				m = new MemberDto();
-				m.setMember_id(rs.getInt("member_id")); // ✅ member_id 저장
-				m.setId(rs.getString("id"));
-				m.setPassword(rs.getString("password"));
-				m.setNickname(rs.getString("nickname"));
-				m.setEmail(rs.getString("email"));
-				m.setReg_date(rs.getTimestamp("reg_date")); // 가입 날짜
-				m.setRole(rs.getInt("role")); // 권한 (일반 회원/관리자 구분)
-
+				m.setMember_id(resultSet.getInt("member_id"));
+				m.setId(resultSet.getString("id"));
+				m.setPassword(resultSet.getString("password"));
+				m.setNickname(resultSet.getString("nickname"));
+				m.setEmail(resultSet.getString("email"));
+				m.setReg_date(resultSet.getTimestamp("reg_date"));
+				m.setRole(resultSet.getInt("role"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			// 리소스 정리
+			try {
+				if (resultSet != null) resultSet.close();
+				if (pstmt != null) pstmt.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		return m;
 	}
@@ -157,27 +162,36 @@ public class MemberDao extends JDBConnect {
 	public List<MemberDto> getAllMembers() {
 		List<MemberDto> memberList = new ArrayList<>();
 		String sql = "SELECT member_id, id, nickname, email, reg_date, role FROM members ORDER BY reg_date DESC";
+		Statement statement = null;
+		ResultSet resultSet = null;
 
 		try {
-			stmt = con.createStatement();
-			rs = stmt.executeQuery(sql);
+			statement = con.createStatement();
+			resultSet = statement.executeQuery(sql);
 
-			while (rs.next()) {
-				int memberId = rs.getInt("member_id");
-				String id = rs.getString("id");
-				String nickname = rs.getString("nickname");
-				String email = rs.getString("email");
-				Timestamp regDate = rs.getTimestamp("reg_date"); // ✅ Timestamp로 가져오기
-				int role = rs.getInt("role");
+			while (resultSet.next()) {
+				int memberId = resultSet.getInt("member_id");
+				String id = resultSet.getString("id");
+				String nickname = resultSet.getString("nickname");
+				String email = resultSet.getString("email");
+				Timestamp regDate = resultSet.getTimestamp("reg_date");
+				int role = resultSet.getInt("role");
 
-				// ✅ MemberDto에 맞는 생성자 사용
 				MemberDto member = new MemberDto(memberId, id, nickname, email, regDate);
-				member.setRole(role); // 역할(role)도 추가 설정
+				member.setRole(role);
 				memberList.add(member);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("❌ [ERROR] 회원 목록 조회 중 오류 발생");
+		} finally {
+			// 리소스 정리
+			try {
+				if (resultSet != null) resultSet.close();
+				if (statement != null) statement.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		return memberList;
 	}

@@ -3,41 +3,126 @@
 *.jar
 *.war
 *.ear
-*.log
 *.tmp
 
-# IDE
+# IDE - Eclipse
+.metadata/
+.settings/
+.classpath
+.project
+bin/
+.loadpath
+.recommenders
+.cache-main
+.scala_dependencies
+.worksheet
+
+# IDE - IntelliJ IDEA
 .idea/
-.eclipse/
 *.iml
 *.iws
 *.ipr
+out/
+
+# IDE - VSCode
 .vscode/
+
+# IDE - NetBeans
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
 
 # OS
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
 
-# Build
+# Build artifacts
 build/
 target/
 dist/
-out/
+*.class
+
+# Compiled output
+/build/classes/
+
+# Maven
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+# Gradle
+.gradle/
+gradle-app.setting
+!gradle-wrapper.jar
+.gradletasknamecache
 
 # Sensitive configuration files
 config.properties
 local.properties
 *.env
 .env*
+application-local.yml
+application-local.properties
 
 # Database
 *.db
 *.sqlite
+*.h2.db
 
 # Logs
 logs/
 *.log
+*.log.*
 
 # Temporary files
 tmp/
 temp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+
+# Large media files (consider using Git LFS or external storage)
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.wmv
+*.flv
+# Uncomment if you want to exclude large images
+# *.jpg
+# *.jpeg
+# *.png
+# *.gif
+
+# Connection test files (should not be in production)
+ConnectionTest.jsp
+SqlTest.sql
+
+# Maven wrapper
+.mvn/wrapper/maven-wrapper.jar
+.mvn/wrapper/maven-wrapper.properties
+
+# Package Files
+*.nar
+*.zip
+*.tar.gz
+*.rar
+
+# Virtual machine crash logs
+hs_err_pid*
+replay_pid*
