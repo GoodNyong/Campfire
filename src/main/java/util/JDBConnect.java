@@ -23,7 +23,7 @@ public class JDBConnect {
 		try {
 			// JDBC 드라이버 로드
 			// 객체 생성
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.cj.jdbc.Driver");
 
 			// DB에 연결 - 환경변수 또는 설정파일에서 가져와야 합니다
 			String url = System.getProperty("db.url", "jdbc:mysql://localhost:3306/campfire");

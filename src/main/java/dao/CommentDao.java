@@ -101,12 +101,12 @@ public class CommentDao extends JDBConnect {
 	// 댓글 수정 메소드
 	public int updateComment(int commentId, String newContent) {
 		int result = 0;
+		// content가 null일 경우 빈 문자열로 처리
 		if (newContent == null) {
 			newContent = "";
 		}
-//updateComment() 메소드에서 content가 null일 경우 빈 문자열로 처리
-		String sql = "UPDATE comments SET content = ?, reg_date = NOW() WHERE comment_id = ?";
 
+		String sql = "UPDATE comments SET content = ?, reg_date = NOW() WHERE comment_id = ?";
 		try {
 			psmt = con.prepareStatement(sql);
 			psmt.setString(1, newContent);
