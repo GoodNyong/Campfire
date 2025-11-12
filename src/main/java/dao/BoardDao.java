@@ -16,30 +16,45 @@ public class BoardDao extends JDBConnect {
 
 	public int selectCount(Map<String, String> map) {
 		int totalCnt = 0;
-		String sql;
+		StringBuilder sql = new StringBuilder("SELECT COUNT(*) FROM boards WHERE true");
+		List<Object> params = new ArrayList<>();
 
 		try {
-			sql = "SELECT COUNT(*) FROM boards WHERE true";
+			String category = map.get("category");
+			String searchField = map.get("searchField");
+			String searchWord = map.get("searchWord");
 
 			// ✅ 공지 게시판이면 전체 개수를 반환 (페이징 X)
-			if ("1".equals(map.get("category"))) {
-				sql = "SELECT COUNT(*) FROM boards WHERE category = '1'";
+			if ("1".equals(category)) {
+				sql = new StringBuilder("SELECT COUNT(*) FROM boards WHERE category = ?");
+				params.add("1");
 			} else {
-				if (map.get("category") != null && !map.get("category").isEmpty()) {
-					sql += " AND category = " + map.get("category");
+				// 카테고리 조건 추가
+				if (category != null && !category.isEmpty()) {
+					sql.append(" AND category = ?");
+					params.add(category);
 				}
-				if (map.get("searchWord") != null) {
-					sql += " AND " + map.get("searchField") + " LIKE '%" + map.get("searchWord") + "%'";
+
+				// 검색 조건 추가
+				if (searchWord != null && !searchWord.isEmpty()) {
+					sql.append(" AND ").append(searchField).append(" LIKE ?");
+					params.add("%" + searchWord + "%");
 				}
 
 				// ✅ 전체 게시판에서는 공지글 개수를 제외하고 카운트
-				if (map.get("category") == null || map.get("category").isEmpty()) {
-					sql += " AND category != '1' ";
+				if (category == null || category.isEmpty()) {
+					sql.append(" AND category != '1'");
 				}
 			}
 
-			stmt = con.createStatement();
-			rs = stmt.executeQuery(sql);
+			psmt = con.prepareStatement(sql.toString());
+
+			// 파라미터 바인딩
+			for (int i = 0; i < params.size(); i++) {
+				psmt.setObject(i + 1, params.get(i));
+			}
+
+			rs = psmt.executeQuery();
 			if (rs.next()) {
 				totalCnt = rs.getInt(1);
 			}
@@ -152,8 +167,6 @@ public class BoardDao extends JDBConnect {
 	public int updateBoard(BoardDto b) {
 		int res = 0;
 		try {
-			// String sql = "update boards set title = ? , content = ? where id = ? and
-			// board_id = ?";
 			String sql = "update boards set title = ? , content = ? , category = ? where board_id = ?";
 			psmt = con.prepareStatement(sql);
 			psmt.setString(1, b.getTitle());
@@ -162,7 +175,6 @@ public class BoardDao extends JDBConnect {
 			psmt.setInt(4, b.getBoard_id());
 			res = psmt.executeUpdate();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return res;
@@ -204,7 +216,6 @@ public class BoardDao extends JDBConnect {
 			psmt.setInt(1, board_id);
 			res = psmt.executeUpdate();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return res;
@@ -231,16 +242,10 @@ public class BoardDao extends JDBConnect {
 			}
 
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return b;
 	}
-
-//	public void boardDelete(int board_id) {
-//		// TODO Auto-generated method stub
-//
-//	}
 
 	// 내가 작성한 게시글 조회
 	public List<BoardDto> getBoardsByUser(int memberId) {
