@@ -21,26 +21,36 @@ public class CommentDao extends JDBConnect {
 	public List<CommentDto> getCommentsByBoardId(int boardId) {
 		List<CommentDto> commentList = new ArrayList<>();
 		String sql = "SELECT * FROM comments WHERE board_id = ? ORDER BY reg_date DESC";
+		PreparedStatement pstmt = null;
+		ResultSet resultSet = null;
 
 		try {
-			psmt = con.prepareStatement(sql);
-			psmt.setInt(1, boardId);
-			rs = psmt.executeQuery();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, boardId);
+			resultSet = pstmt.executeQuery();
 
-			while (rs.next()) {
+			while (resultSet.next()) {
 				CommentDto comment = new CommentDto();
-				comment.setComment_id(rs.getInt("comment_id"));
-				comment.setBoard_id(rs.getInt("board_id"));
-				comment.setWriter_id(rs.getInt("writer_id"));
-				comment.setId(rs.getString("id"));
-				comment.setContent(rs.getString("content"));
-				comment.setReg_date(rs.getTimestamp("reg_date"));
+				comment.setComment_id(resultSet.getInt("comment_id"));
+				comment.setBoard_id(resultSet.getInt("board_id"));
+				comment.setWriter_id(resultSet.getInt("writer_id"));
+				comment.setId(resultSet.getString("id"));
+				comment.setContent(resultSet.getString("content"));
+				comment.setReg_date(resultSet.getTimestamp("reg_date"));
 
 				commentList.add(comment);
 			}
 		} catch (SQLException e) {
 			System.out.println("댓글 목록 조회 중 예외 발생");
 			e.printStackTrace();
+		} finally {
+			// 리소스 정리
+			try {
+				if (resultSet != null) resultSet.close();
+				if (pstmt != null) pstmt.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		return commentList;
 	}
@@ -135,28 +145,37 @@ public class CommentDao extends JDBConnect {
 
 	// 댓글 목록 조회 메소드
 	public List<CommentDto> getCommentList(int board_id) {
-		// 특정 게시글의 댓글 목록을 조회하는 sql실행
 		List<CommentDto> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet resultSet = null;
 
 		try {
 			String query = "SELECT * FROM comments WHERE board_id = ? ORDER BY reg_date DESC";
-			psmt = con.prepareStatement(query);
-			psmt.setInt(1, board_id);
-			rs = psmt.executeQuery();
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, board_id);
+			resultSet = pstmt.executeQuery();
 
-			while (rs.next()) {
+			while (resultSet.next()) {
 				CommentDto dto = new CommentDto();
-				dto.setComment_id(rs.getInt("comment_id"));
-				dto.setBoard_id(rs.getInt("board_id"));
-				dto.setWriter_id(rs.getInt("writer_id"));
-				dto.setId(rs.getString("id"));
-				dto.setContent(rs.getString("content"));
-				dto.setReg_date(rs.getTimestamp("reg_date"));
+				dto.setComment_id(resultSet.getInt("comment_id"));
+				dto.setBoard_id(resultSet.getInt("board_id"));
+				dto.setWriter_id(resultSet.getInt("writer_id"));
+				dto.setId(resultSet.getString("id"));
+				dto.setContent(resultSet.getString("content"));
+				dto.setReg_date(resultSet.getTimestamp("reg_date"));
 				list.add(dto);
 			}
 		} catch (SQLException e) {
 			System.out.println("댓글 목록 조회 중 예외 발생");
 			e.printStackTrace();
+		} finally {
+			// 리소스 정리
+			try {
+				if (resultSet != null) resultSet.close();
+				if (pstmt != null) pstmt.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		return list;
 	}

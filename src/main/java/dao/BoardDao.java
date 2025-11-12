@@ -18,6 +18,8 @@ public class BoardDao extends JDBConnect {
 		int totalCnt = 0;
 		StringBuilder sql = new StringBuilder("SELECT COUNT(*) FROM boards WHERE true");
 		List<Object> params = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet resultSet = null;
 
 		try {
 			String category = map.get("category");
@@ -47,21 +49,29 @@ public class BoardDao extends JDBConnect {
 				}
 			}
 
-			psmt = con.prepareStatement(sql.toString());
+			pstmt = con.prepareStatement(sql.toString());
 
 			// 파라미터 바인딩
 			for (int i = 0; i < params.size(); i++) {
-				psmt.setObject(i + 1, params.get(i));
+				pstmt.setObject(i + 1, params.get(i));
 			}
 
-			rs = psmt.executeQuery();
-			if (rs.next()) {
-				totalCnt = rs.getInt(1);
+			resultSet = pstmt.executeQuery();
+			if (resultSet.next()) {
+				totalCnt = resultSet.getInt(1);
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("게시물 수 조회 중 에러 발생");
+		} finally {
+			// 리소스 정리
+			try {
+				if (resultSet != null) resultSet.close();
+				if (pstmt != null) pstmt.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		return totalCnt;
 	}
@@ -223,26 +233,37 @@ public class BoardDao extends JDBConnect {
 
 	public BoardDto selectView(int board_id) { // 상세보기
 		BoardDto b = null;
+		PreparedStatement pstmt = null;
+		ResultSet resultSet = null;
+
 		try {
 			String sql = "SELECT * FROM boards WHERE board_id = ?";
-			psmt = con.prepareStatement(sql);
-			psmt.setInt(1, board_id);
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, board_id);
 
-			rs = psmt.executeQuery();
-			if (rs.next()) {
+			resultSet = pstmt.executeQuery();
+			if (resultSet.next()) {
 				b = new BoardDto();
-				b.setBoard_id(rs.getInt("board_id"));
-				b.setCategory(rs.getString("category"));
-				b.setWriter_id(rs.getInt("writer_id"));
-				b.setId(rs.getString("id"));
-				b.setTitle(rs.getString("title"));
-				b.setContent(rs.getString("content"));
-				b.setView_count(rs.getInt("view_count"));
-				b.setReg_date(rs.getDate("reg_date"));
+				b.setBoard_id(resultSet.getInt("board_id"));
+				b.setCategory(resultSet.getString("category"));
+				b.setWriter_id(resultSet.getInt("writer_id"));
+				b.setId(resultSet.getString("id"));
+				b.setTitle(resultSet.getString("title"));
+				b.setContent(resultSet.getString("content"));
+				b.setView_count(resultSet.getInt("view_count"));
+				b.setReg_date(resultSet.getDate("reg_date"));
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			// 리소스 정리
+			try {
+				if (resultSet != null) resultSet.close();
+				if (pstmt != null) pstmt.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		return b;
 	}
@@ -250,22 +271,25 @@ public class BoardDao extends JDBConnect {
 	// 내가 작성한 게시글 조회
 	public List<BoardDto> getBoardsByUser(int memberId) {
 		List<BoardDto> boardList = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet resultSet = null;
+
 		try {
 			String sql = "SELECT * FROM boards WHERE writer_id = ? ORDER BY reg_date DESC";
-			psmt = con.prepareStatement(sql);
-			psmt.setInt(1, memberId);
-			rs = psmt.executeQuery();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, memberId);
+			resultSet = pstmt.executeQuery();
 
-			while (rs.next()) {
+			while (resultSet.next()) {
 				BoardDto board = new BoardDto();
-				board.setBoard_id(rs.getInt("board_id"));
-				board.setCategory(rs.getString("category"));
-				board.setWriter_id(rs.getInt("writer_id"));
-				board.setId(rs.getString("id"));
-				board.setTitle(rs.getString("title"));
-				board.setContent(rs.getString("content"));
-				board.setView_count(rs.getInt("view_count"));
-				board.setReg_date(rs.getDate("reg_date"));
+				board.setBoard_id(resultSet.getInt("board_id"));
+				board.setCategory(resultSet.getString("category"));
+				board.setWriter_id(resultSet.getInt("writer_id"));
+				board.setId(resultSet.getString("id"));
+				board.setTitle(resultSet.getString("title"));
+				board.setContent(resultSet.getString("content"));
+				board.setView_count(resultSet.getInt("view_count"));
+				board.setReg_date(resultSet.getDate("reg_date"));
 
 				boardList.add(board);
 			}
@@ -273,6 +297,14 @@ public class BoardDao extends JDBConnect {
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("❌ [ERROR] 내가 쓴 게시글 조회 중 오류 발생");
+		} finally {
+			// 리소스 정리
+			try {
+				if (resultSet != null) resultSet.close();
+				if (pstmt != null) pstmt.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		return boardList;
 	}
