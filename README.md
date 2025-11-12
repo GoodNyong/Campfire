@@ -89,22 +89,44 @@ build/classes/     # 컴파일 산출물(저장소에 포함되어 있음)
 ## 보안/운영 고려사항(중요)
 - 비밀번호 보안: 현재 평문 저장/검증. BCrypt/Argon2 해시로 교체 필요(가입/로그인 로직 수정).
 - 비밀정보: DB 계정/외부 API 키가 코드/설정에 노출됨 → 환경변수/JNDI로 이동하고 커밋 금지.
-- SQL 인젝션: `BoardDao.selectCount(...)` 등 문자열 결합 쿼리 존재 → PreparedStatement와 컬럼 화이트리스트로 교정 필요.
-- 드라이버/URL: `com.mysql.cj.jdbc.Driver`와 타임존/인코딩 옵션 사용 권장.
+- ✅ ~~SQL 인젝션: `BoardDao.selectCount(...)` 등 문자열 결합 쿼리 존재~~ → **수정 완료** (PreparedStatement 파라미터 바인딩 적용)
+- ✅ ~~드라이버/URL: deprecated 드라이버 클래스 사용~~ → **수정 완료** (`com.mysql.cj.jdbc.Driver` 사용)
 - 커넥션/자원: 스케줄러 포함 모든 DAO에서 사용 후 `close()` 보장, 풀(DataSource) 사용 권장.
 - 인증 적용: `filter/AuthFilter`가 주석 상태. 보호 URL에 대해 일괄 필터 적용 필요.
 - 테스트/스크립틀릿: 운영 노출 위험이 있는 테스트 JSP(`ConnectionTest.jsp`) 제거 권장. JSP 스크립틀릿 최소화.
 - 저장소 용량: `build/` 산출물과 대용량 미디어(mp4 등)가 포함됨 → `.gitignore` 추가 및 외부 스토리지/CDN 사용 권장.
 - 리다이렉트 안전성: 로그인 후 `url` 파라미터 검증/화이트리스트로 오픈 리다이렉트 방지.
 - 로깅: `System.out.println` 대신 SLF4J/Logback 등 표준 로깅 도입.
-- 중복 코드: `dto.PageHandler`와 `util.PageHandler` 중복 → 하나로 통합 권장.
+- ✅ ~~중복 코드: `dto.PageHandler`와 `util.PageHandler` 중복~~ → **수정 완료** (통합 완료)
+
+## 최근 개선 사항
+### 2025-11-12 리팩토링
+- **보안 개선**: BoardDao.selectCount에서 SQL 인젝션 취약점 수정 (PreparedStatement 파라미터 바인딩 적용)
+- **코드 품질**: 중복된 util/PageHandler.java 제거 (dto 패키지로 통합)
+- **최신화**: Deprecated MySQL 드라이버 클래스명 업데이트 (com.mysql.cj.jdbc.Driver 사용)
+- **코드 정리**: 불필요한 TODO 주석 및 주석 처리된 코드 제거
 
 ## 로드맵(개선 제안)
-1) 보안 강화: 비밀번호 해시, 비밀정보 외부화, SQL 인젝션 제거, 인증 필터 적용
-2) 인프라: JNDI DataSource/HikariCP, 표준 로깅, 오류 처리 일원화
-3) 코드 정리: 스크립틀릿 제거, 페이징/유틸 통합, DAO try-with-resources 적용
-4) 저장소 정리: `.gitignore` 도입, 산출물/대용량 자산 분리
-5) 문서화: DB 스키마/ERD, 로컬 개발 가이드, 배포 절차 추가
+1) 보안 강화
+   - ✅ SQL 인젝션 제거 (BoardDao 일부 완료)
+   - 🔲 비밀번호 해시 (BCrypt/Argon2 적용)
+   - 🔲 비밀정보 외부화 (환경변수/JNDI)
+   - 🔲 인증 필터 적용
+2) 인프라
+   - 🔲 JNDI DataSource/HikariCP
+   - 🔲 표준 로깅 (SLF4J/Logback)
+   - 🔲 오류 처리 일원화
+3) 코드 정리
+   - ✅ 페이징/유틸 통합 (중복 제거 완료)
+   - 🔲 스크립틀릿 제거
+   - 🔲 DAO try-with-resources 적용
+4) 저장소 정리
+   - 🔲 `.gitignore` 도입
+   - 🔲 산출물/대용량 자산 분리
+5) 문서화
+   - 🔲 DB 스키마/ERD
+   - 🔲 로컬 개발 가이드
+   - 🔲 배포 절차 추가
 
 ## 라이선스
 - 명시된 라이선스가 없으며, 내부 프로젝트 기준으로 사용됩니다.
